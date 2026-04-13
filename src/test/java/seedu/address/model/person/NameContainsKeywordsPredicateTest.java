@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -72,6 +73,19 @@ public class NameContainsKeywordsPredicateTest {
         // Multi-word keyword phrase
         predicate = new NameContainsKeywordsPredicate(Collections.singletonList("alice bob"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+
+        // Keywords with newly allowed punctuation
+        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Mary-Anne"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Mary-Anne Lee").build()));
+
+        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("O'Brien"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Tim O'Brien").build()));
+
+        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("s/o"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Ahmad s/o Ibrahim").build()));
+
+        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Dr."));
+        assertTrue(predicate.test(new PersonBuilder().withName("Dr. John Smith").build()));
     }
 
     @Test
@@ -95,11 +109,15 @@ public class NameContainsKeywordsPredicateTest {
     public void constructor_invalidKeyword_throwsCommandException() {
         CommandException exception = assertThrows(CommandException.class, () ->
                 new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob!")));
-        assertEquals(Messages.MESSAGE_CONTAINS_NON_ALPHANUMERIC_CHARACTER, exception.getMessage());
+        assertEquals(Messages.MESSAGE_INVALID_NAME_KEYWORD, exception.getMessage());
+    }
 
-        exception = assertThrows(CommandException.class, () ->
-                new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob-Charles")));
-        assertEquals(Messages.MESSAGE_CONTAINS_NON_ALPHANUMERIC_CHARACTER, exception.getMessage());
+    @Test
+    public void constructor_validKeywordWithCommonPunctuation_doesNotThrow() {
+        assertDoesNotThrow(() -> new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob-Charles")));
+        assertDoesNotThrow(() -> new NameContainsKeywordsPredicate(Arrays.asList("O'Brien")));
+        assertDoesNotThrow(() -> new NameContainsKeywordsPredicate(Arrays.asList("Ahmad s/o Ibrahim")));
+        assertDoesNotThrow(() -> new NameContainsKeywordsPredicate(Arrays.asList("Dr. John")));
     }
 
     @Test
