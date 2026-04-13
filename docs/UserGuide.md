@@ -348,10 +348,12 @@ Use `;` to split phrases into multiple keyword groups, e.g. `find -n alice pauli
 * `-m and|or` must come after a `-n` or `-t` keyword group; it cannot appear before both fields.
 * If both `-n` and `-t` are provided, a person must satisfy both fields.
 * Matching is based on text containment. e.g. `ali` will match `Alice`.
-* Keywords can only contain alphanumeric characters and spaces.
+* Name keywords can contain alphanumeric characters, spaces, and common punctuation such as `.`, `'`, `/`, and `-`.
+* Tag keywords can only contain alphanumeric characters and spaces.
 
 Examples:
 * `find -n alice pauline ; josh -m or` returns persons whose names contain `alice pauline` or `josh`.
+* `find -n Ahmad s/o Ibrahim` returns persons whose names contain `Ahmad s/o Ibrahim`.
 * `find -t RAG2026 ; finance ; secretaries -m and` returns persons with tags containing all listed groups.
 * `find -n dan ; elle -m and -t friends ; student -m or` returns persons whose names contain both `dan` and `elle`,
   and tags containing `friends` or `student`.

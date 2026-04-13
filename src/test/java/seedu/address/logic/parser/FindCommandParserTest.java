@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_CONTAINS_NON_ALPHANUMERIC_CHARACTER;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_NAME_KEYWORD;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -105,7 +106,7 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_invalidKeyword_throwsCommandException() {
-        assertParseFailure(parser, " -n Alice Bob!", MESSAGE_CONTAINS_NON_ALPHANUMERIC_CHARACTER);
+        assertParseFailure(parser, " -n Alice Bob!", MESSAGE_INVALID_NAME_KEYWORD);
         assertParseFailure(parser, " -t friend!", MESSAGE_CONTAINS_NON_ALPHANUMERIC_CHARACTER);
         assertParseFailure(parser, " -n alice ; ; bob",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));

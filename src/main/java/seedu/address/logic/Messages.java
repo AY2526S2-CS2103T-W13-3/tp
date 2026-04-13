@@ -21,6 +21,9 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_CONTAINS_NON_ALPHANUMERIC_CHARACTER = "Only give alphanumeric keywords";
+    public static final String MESSAGE_INVALID_NAME_KEYWORD =
+            "Name keywords should only contain alphanumeric characters, spaces, and common punctuation "
+                    + "(. ' / -)";
     public static final String MESSAGE_ONLY_YES_NO = "Please enter either \'y\' or \'n\'";
     public static final String MESSAGE_SUCCESSFUL_CANCEL = "%1$s command cancelled.";
 

@@ -11,8 +11,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Person> {
-    private static final String KEYWORD_VALIDATION_REGEX = "^[a-zA-Z0-9]+( [a-zA-Z0-9]+)*$";
-
+    private static final String KEYWORD_VALIDATION_REGEX =
+            "^[\\p{Alnum}][\\p{Alnum} .'/\\-]*$";
     private final List<String> keywords;
     private final KeywordRelation relation;
 
@@ -35,7 +35,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
      */
     public NameContainsKeywordsPredicate(List<String> keywords, KeywordRelation relation) throws CommandException {
         if (keywords.stream().anyMatch(keyword -> !keyword.matches(KEYWORD_VALIDATION_REGEX))) {
-            throw new CommandException(Messages.MESSAGE_CONTAINS_NON_ALPHANUMERIC_CHARACTER);
+            throw new CommandException(Messages.MESSAGE_INVALID_NAME_KEYWORD);
         }
 
         this.keywords = keywords;

@@ -827,6 +827,12 @@ testers are expected to do more *exploratory* testing.
     4. Test case: `find -n John; alice`<br>
        Expected: Contacts matching "John" and "alice" are displayed (case-insensitive).
 
+    5. Test case: `find -n Mary-Anne`  
+       Expected: All contacts with names containing `Mary-Anne` are displayed.
+
+    6. Test case: `find -n O'Brien`  
+       Expected: All contacts with names containing `O'Brien` are displayed.
+
 2. Finding persons by partial match
 
     1. Prerequisites: The app contains contacts such as "Jonathan", "Johnny", "John Doe".
